@@ -1,14 +1,24 @@
+//const loginForm = document.getElementById("login-form");
+//const loginInput = loginForm.querySelector("input");
+//const loginBotton = loginForm.querySelector("button");
 
-const h1 = document.querySelector("div.hello:first-child h1");
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector("#greeting");
 
-h1.innerText = "Click me!";
+const HIDDEN_CLASSNAME = "hidden"; //중요한 정보가 아니라서 대문자로 표기
 
-//<클릭할때마다 색깔바꾸게하기>
-function handleTitleClick() {
-  h1.classList.toggle("clicked");
+function onLoginSubumit(event) {
+    event.preventDefault();
+    loginForm.classList.add(HIDDEN_CLASSNAME);
+    const username = loginInput.value;
+    localStorage.setItem("username", username )
+    //greeting.innerText = "Hello " + username;
+    greeting.innerText = `Hello ${username}`; //spring + 변수 = `spring${변수}`
+    greeting.classList.remove(HIDDEN_CLASSNAME);
 }
 
-h1.addEventListener("click", handleTitleClick); //클릭하면 반응
 
-//1. element 를 찾아라. document안에 div, h1 등등
-//2. event를 listen 해라
+    loginForm.addEventListener("submit", onLoginSubumit);
+
+    #4.6
