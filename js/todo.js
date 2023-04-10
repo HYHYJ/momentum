@@ -13,7 +13,10 @@ function saveToDos(){
 function deletToDo(event) {
     const li = event.target.parentElement; //target은 button, button의 부모 찾기 li
     li.remove();
-}
+    toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id) ); // 위에 li지울려는 것의 아이디인거 빼고 모두 리턴
+    saveToDos();
+} 
+//윗윗줄 toDo 는 toDos DB에 있는 요소중 하나임. 이함수는 DB에 있는 모든것과 함께 실행.
 
 function paintToDo(newTodo) { //newTodo라는 인수로 newTodoObj라는 object를 받고있음
     const li = document.createElement("li");
@@ -44,9 +47,9 @@ function handleToDoSubmit(event) {
 toDoForm.addEventListener("submit", handleToDoSubmit);
 
 const savedToDos = localStorage.getItem(TODOS_KEY);
-console.log(savedToDos)
 
-if(savedToDos !== null){
+
+if(savedToDos !== null) {
     const paresdToDos = JSON.parse(savedToDos); //string이 아닌 Js에서 사용가능한 object로 변환
     toDos = paresdToDos;
     paresdToDos.forEach(paintToDo); //forEach 함수는 이 paintToDo를 parsedToDos= ToDos = [] 배열의 요소마다 실행한다.
@@ -56,14 +59,3 @@ if(savedToDos !== null){
 // array 삭제할때 진짜 일어나는 일은 지우고싶은 item을 제외하고(지우는거xx) 새 array를 만듬.(예전 array 존재)
 
 //지우고싶은 item을 제외한다!  = .filter
-
-function sexyFilter() { //sexyFilter 함수는 반드시 true를 리턴해야한다. 만약 새 array에서 이 object를 유지하고싶으면. false가 리턴되면 그 item은  새array에 포함 xxx
-
-}
-
-[1, 2, 3, 4].filter(sexyFilter) //filter는 sexyFilter에 1,2,3,4를 넣어서 부를것임.
-
-sexyFilter(1) =1//sexyFilter 함수는 반드시 true를 리턴해야한다.
-sexyFilter(2) =2
-sexyFilter(3) x 3 // 만약 3을 false 로 출력되면 1,2,4만 유지
-sexyFilter(4) =4 // true면 유지되고 새로 만들어지는 array안에 1,2,3,4가 있다.
